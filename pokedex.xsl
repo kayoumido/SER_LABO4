@@ -41,12 +41,7 @@
                </select>
            </form>
           <div id="acordion">
-            <xsl:variable name="types" select="//pokedex/pokemon/type[not(. = ../following-sibling::pokemon/type)]" /> <!-- ##### A compléter 3 : Ici, vous devez trouver l'expression XPath à mettre dans l'attribut select
-                                                                 Le but est de récupérer les types de pokemon en parcourant tous les enfants <type> de tous les pokemons,
-                                                                 mais sans avoir de doublons à la fin, vous ne pouvez pas mettre explicitement ici les types que vous trouver dans le fichier XML
-
-                                                                 Conseil : Cherchez une astuce sur internet ! -->
-
+            <xsl:variable name="types" select="//pokedex/pokemon/type[not(. = ../following-sibling::pokemon/type)]" />
             <xsl:for-each select="$types">
               &#160;<button data-toggle="collapse" role="button" class="btn btn-outline-primary">
                   <xsl:attribute name="data-target">
@@ -63,6 +58,9 @@
                   <xsl:value-of select="." />
                 </xsl:attribute>
                 <!-- ##### A compléter 4 : Ici, vous devez faire appel au template lister_pokemon en lui passant le bon filtre en paramètre -->
+                <xsl:call-template name="lister_pokemon">
+                  <xsl:with-param name="filtre" select="//pokedex/pokemon"/>
+                </xsl:call-template>
               </div>
             </xsl:for-each>
           </div>
@@ -88,7 +86,8 @@
   </xsl:template>
 
   <xsl:template name="lister_pokemon">
-    <!-- </> ##### A compléter 6 -->
+    <xsl:param name="filtre"></xsl:param>
+    <!-- <h1></h1> -->
     <div class="row">
       <xsl:for-each select="$filtre">
         <!-- </> ##### A compléter 7 : Vous devez trier les pokemons par la valeur numérique de leur ID -->
