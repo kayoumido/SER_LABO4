@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!-- A compléter -->
+<?xml-stylesheet href="pokedex.xsl" type="text/xsl" ?>
+
 <pokedex>
   <pokemon>
     <id>1</id>
