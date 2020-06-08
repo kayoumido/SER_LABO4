@@ -41,7 +41,7 @@
                </select>
            </form>
           <div id="acordion">
-            <xsl:variable name="types" select="//pokedex/pokemon/type[not(. = ../following-sibling::pokemon/type)]" />
+            <xsl:variable name="types" select="//pokedex/pokemon/type[not(preceding::*=.)]" />
             <xsl:for-each select="$types">
               &#160;<button data-toggle="collapse" role="button" class="btn btn-outline-primary">
                   <xsl:attribute name="data-target">
@@ -60,6 +60,7 @@
                 <!-- ##### A compléter 4 : Ici, vous devez faire appel au template lister_pokemon en lui passant le bon filtre en paramètre -->
                 <xsl:call-template name="lister_pokemon">
                   <xsl:with-param name="filtre" select="//pokedex/pokemon[type=$type]"/>
+                  <!-- other possible filter //pokedex/pokemon/type[text()=$type]/parent::pokemon -->
                 </xsl:call-template>
               </div>
             </xsl:for-each>
