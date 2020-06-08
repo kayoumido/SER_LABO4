@@ -5,6 +5,7 @@
   <!-- Travail à faire : Compléter les parties <a compléter> de 1 à 10 afin d'obtenir le résultat expliqué dans la vidéo du laboratoire -->
   <!-- !!!!! Nous vous rendons attentif que vous n'avez PAS LE DROIT de modifier le reste du document, mais uniquement ces parties -->
 
+  <!-- ##### A compléter 1 -->
   <xsl:output
     method          = "html"
     encoding        = "UTF-8"
@@ -12,7 +13,7 @@
     doctype-system  = "http://www.w3.org/TR/html4/strict.dtd"
     indent          = "yes"
   />
-
+  <!-- ##### A compléter 2 -->
   <xsl:template match="/">
     <html>
       <style>
@@ -40,7 +41,8 @@
                  <option value="7">Génération 7</option>
                </select>
            </form>
-          <div id="acordion">
+          <div id="accordion">
+            <!-- ##### A compléter 3 -->
             <xsl:variable name="types" select="//pokedex/pokemon/type[not(preceding::*=.)]" />
             <xsl:for-each select="$types">
               &#160;<button data-toggle="collapse" role="button" class="btn btn-outline-primary">
@@ -57,7 +59,7 @@
                 <xsl:attribute name="id">
                   <xsl:value-of select="." />
                 </xsl:attribute>
-                <!-- ##### A compléter 4 : Ici, vous devez faire appel au template lister_pokemon en lui passant le bon filtre en paramètre -->
+                <!-- ##### A compléter 4 -->
                 <xsl:call-template name="lister_pokemon">
                   <xsl:with-param name="filtre" select="//pokedex/pokemon[type=$type]"/>
                   <!-- other possible filter //pokedex/pokemon/type[text()=$type]/parent::pokemon -->
@@ -84,14 +86,15 @@
         });
       </script>
     </html>
-  </xsl:template>
+  </xsl:template> <!-- Fin a compléter 2 -->
 
   <xsl:template name="lister_pokemon">
+    <!-- ##### A compléter 6 -->
     <xsl:param name="filtre"></xsl:param>
-    <!-- <h1></h1> -->
     <div class="row">
       <xsl:for-each select="$filtre">
-        <!-- </> ##### A compléter 7 : Vous devez trier les pokemons par la valeur numérique de leur ID -->
+        <!-- ##### A compléter 7 -->
+        <xsl:sort order="ascending" select="//id"/>
         <xsl:apply-templates select="." />
       </xsl:for-each>
     </div>
@@ -100,17 +103,16 @@
   <xsl:template match="pokemon">
     <div class="col-2 mb-2" role="pokemon">
       <xsl:attribute name="generation">
-        <!-- ##### A compléter 10 (le plus proprement possible) étant donné les contraintes suivantes : -->
-
-        <!-- generation = "1" si l'id du pokemon est plus petit ou égal à 151 -->
-        <!-- generation = "2" si l'id du pokemon est plus petit ou égal à 251 et plus grand que 151 -->
-        <!-- generation = "3" si l'id du pokemon est plus petit ou égal à 386 et plus grand que 251 -->
-        <!-- generation = "4" si l'id du pokemon est plus petit ou égal à 493 et plus grand que 386 -->
-        <!-- generation = "5" si l'id du pokemon est plus petit ou égal à 649 et plus grand que 493 -->
-        <!-- generation = "6" si l'id du pokemon est plus petit ou égal à 721 et plus grand que 649.-->
-        <!-- generation = "7" si l'id du pokemon est plus petit ou égal à 809 et plus grand que 721-->
-        <xsl:value-of select="1"/><!-- Pour l'instant tous les pokémosn sont de la génération 1, pour que vous ne soyez pas bloqué sur le reste -->
-        <!-- Fin A compléter 10 -->
+        <!-- ##### A compléter 10 -->
+        <xsl:choose>
+          <xsl:when test="id &lt;= 151">1</xsl:when>
+          <xsl:when test="id &gt; 151 and id &lt;= 251">2</xsl:when>
+          <xsl:when test="id &gt; 251 and id &lt;= 386">3</xsl:when>
+          <xsl:when test="id &gt; 386 and id &lt;= 493">4</xsl:when>
+          <xsl:when test="id &gt; 493 and id &lt;= 649">5</xsl:when>
+          <xsl:when test="id &gt; 649 and id &lt;= 721">6</xsl:when>
+          <xsl:when test="id &gt; 721 and id &lt;= 809">7</xsl:when>
+        </xsl:choose>
       </xsl:attribute>
 
       <div class="card">
@@ -132,14 +134,14 @@
   </xsl:template>
 
   <xsl:template match="id">
+    <!-- ##### A compléter 8 -->
     <img width="100%">
-       <!-- </> ##### A compléter 8 : Ici, vous devez étudier le dossier images et vous trouverez facilement l'objectif de ce que vous devez faire ici. Indice : Vous devez utiliser une ou plusieurs 	               fonctions de  XSLT-->
-
-      <!-- NB : La sources d'images utilisées provient de :  https://github.com/fanzeyi/pokemon.json    -->
+      <xsl:attribute name="src">./images/<xsl:copy-of select="format-number(text(), '000')"/>.png</xsl:attribute>
     </img>
   </xsl:template>
-  <!--
-  <><! -  - ##### A compléter 9 - - >
+
+  <!-- ##### A compléter 9 -->
+  <xsl:template match="base">
     <table class="table table-stripped">
       <tr>
         <td>Points de vie (HP)</td>
@@ -158,7 +160,5 @@
         <td><xsl:value-of select="Speed" /></td>
       </tr>
     </table>
-
-  <> <!- - Fin à compléter 9 - ->
-  -->
+  </xsl:template>
 </xsl:stylesheet>
