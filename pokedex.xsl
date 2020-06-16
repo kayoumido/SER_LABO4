@@ -106,12 +106,12 @@
         <!-- ##### A compléter 10 -->
         <xsl:choose>
           <xsl:when test="id &lt;= 151">1</xsl:when>
-          <xsl:when test="id &gt; 151 and id &lt;= 251">2</xsl:when>
-          <xsl:when test="id &gt; 251 and id &lt;= 386">3</xsl:when>
-          <xsl:when test="id &gt; 386 and id &lt;= 493">4</xsl:when>
-          <xsl:when test="id &gt; 493 and id &lt;= 649">5</xsl:when>
-          <xsl:when test="id &gt; 649 and id &lt;= 721">6</xsl:when>
-          <xsl:when test="id &gt; 721 and id &lt;= 809">7</xsl:when>
+          <xsl:when test="id &lt;= 251">2</xsl:when>
+          <xsl:when test="id &lt;= 386">3</xsl:when>
+          <xsl:when test="id &lt;= 493">4</xsl:when>
+          <xsl:when test="id &lt;= 649">5</xsl:when>
+          <xsl:when test="id &lt;= 721">6</xsl:when>
+          <xsl:when test="id &lt;= 809">7</xsl:when>
         </xsl:choose>
       </xsl:attribute>
 
